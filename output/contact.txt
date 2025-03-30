@@ -1,0 +1,24 @@
+1:"$Sreact.fragment"
+2:I[889,["345","static/chunks/345-b7a3303ed8e87ad2.js","856","static/chunks/856-4fe779b59d109b16.js","177","static/chunks/app/layout-9c84ab6930d99397.js"],"default"]
+3:I[5752,["345","static/chunks/345-b7a3303ed8e87ad2.js","856","static/chunks/856-4fe779b59d109b16.js","177","static/chunks/app/layout-9c84ab6930d99397.js"],"default"]
+4:I[8474,["345","static/chunks/345-b7a3303ed8e87ad2.js","856","static/chunks/856-4fe779b59d109b16.js","177","static/chunks/app/layout-9c84ab6930d99397.js"],"default"]
+5:I[5244,[],""]
+6:I[3866,[],""]
+7:I[5330,["345","static/chunks/345-b7a3303ed8e87ad2.js","856","static/chunks/856-4fe779b59d109b16.js","177","static/chunks/app/layout-9c84ab6930d99397.js"],"default"]
+8:I[7033,[],"ClientPageRoot"]
+9:I[8357,["345","static/chunks/345-b7a3303ed8e87ad2.js","977","static/chunks/app/contact/page-c3c3d3bd6b2df689.js"],"default"]
+c:I[6213,[],"OutletBoundary"]
+f:I[6213,[],"ViewportBoundary"]
+11:I[6213,[],"MetadataBoundary"]
+13:I[4835,[],""]
+:HL["/_next/static/media/47cbc4e2adbc5db9-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/4f05ba3a6752a328-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/css/af64b5d071f6588c.css","style"]
+:HL["/_next/static/css/91a2ef96ecfd50e7.css","style"]
+0:{"P":null,"b":"-E8_EYyE--U_AMfNzZqq9","p":"","c":["","contact"],"i":false,"f":[[["",{"children":["contact",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/af64b5d071f6588c.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/css/91a2ef96ecfd50e7.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","className":"__variable_b73baa __variable_372368","children":["$","$L2",null,{"children":["$","div",null,{"className":"flex min-h-screen flex-col bg-darkBlue","children":[["$","$L3",null,{}],["$","main",null,{"className":"flex-1","children":["$","$L4",null,{"children":["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"$undefined",[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}],["$","$L7",null,{}]]}]}]}]]}],{"children":["contact",["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$L8",null,{"Component":"$9","searchParams":{},"params":{},"promises":["$@a","$@b"]}],"$undefined",null,["$","$Lc",null,{"children":["$Ld","$Le",null]}]]}],{},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","19F-ERAsSMEtiOvjCqcyz",{"children":[["$","$Lf",null,{"children":"$L10"}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],["$","$L11",null,{"children":"$L12"}]]}],false]],"m":"$undefined","G":["$13","$undefined"],"s":false,"S":true}
+a:{}
+b:{}
+10:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+d:null
+e:null
+12:[["$","title","0",{"children":"XAUBOT - AI Trading Robot for Gold (XAU/USD)"}],["$","meta","1",{"name":"description","content":"XAUBOT is an Expert Advisor powered by machine learning and artificial intelligence, compatible with ALL forex trading pairs."}],["$","link","2",{"rel":"icon","href":"/favicon.svg"}]]

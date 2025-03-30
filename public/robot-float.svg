@@ -1,0 +1,43 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="robotHead" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#cccccc;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="robotGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="robotAqua" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer circle (helmet) -->
+  <circle cx="100" cy="80" r="50" fill="url(#robotHead)" stroke="#ffffff" stroke-width="2" />
+
+  <!-- Hourglass symbol in visor -->
+  <g transform="translate(100, 80) scale(0.4)">
+    <path d="M-30,-40 L30,-40 L30,-35 L0,0 L30,35 L30,40 L-30,40 L-30,35 L0,0 L-30,-35 Z" fill="#4338ca" />
+    <rect x="-5" y="-40" width="10" height="80" fill="#4338ca" />
+  </g>
+
+  <!-- Body -->
+  <path d="M70,130 Q100,120 130,130 L120,160 Q100,150 80,160 Z" fill="url(#robotHead)" stroke="#ffffff" stroke-width="2" />
+
+  <!-- Arms -->
+  <path d="M70,135 Q60,140 55,155 Q50,165 60,170 Q70,165 72,155 Z" fill="url(#robotHead)" stroke="#ffffff" stroke-width="2" />
+  <path d="M130,135 Q140,140 145,155 Q150,165 140,170 Q130,165 128,155 Z" fill="url(#robotHead)" stroke="#ffffff" stroke-width="2" />
+
+  <!-- Base/Platform -->
+  <path d="M75,160 Q100,170 125,160 Q115,180 85,180 Z" fill="url(#robotHead)" stroke="#ffffff" stroke-width="2" />
+
+  <!-- Flag -->
+  <rect x="142" y="40" width="3" height="40" fill="#ffffff" />
+  <path d="M145,40 L145,60 L160,50 Z" fill="url(#robotGold)" />
+
+  <!-- Glow effects -->
+  <circle cx="100" cy="80" r="60" fill="transparent" stroke="url(#robotAqua)" stroke-width="1" opacity="0.5" />
+  <circle cx="100" cy="80" r="65" fill="transparent" stroke="url(#robotGold)" stroke-width="0.5" opacity="0.3" />
+</svg>

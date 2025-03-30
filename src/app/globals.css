@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 45 100% 60%; /* Gold/amber color */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 180 100% 50%; /* Teal/cyan color */
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 240 80% 20%; /* Dark blue */
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 45 100% 60%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 20% 3%; /* Very dark blue/black background */
+    --foreground: 210 40% 98%;
+    --card: 240 30% 8%; /* Dark blue card */
+    --card-foreground: 210 40% 98%;
+    --popover: 240 30% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 45 100% 60%; /* Gold/amber color */
+    --primary-foreground: 240 10% 3.9%;
+    --secondary: 180 100% 50%; /* Teal/cyan color */
+    --secondary-foreground: 210 40% 98%;
+    --muted: 240 20% 15%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 240 30% 20%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 240 30% 20%;
+    --input: 240 30% 20%;
+    --ring: 45 100% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-montserrat;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-montserrat font-bold;
+  }
+}
+
+@layer utilities {
+  .text-gold {
+    @apply text-primary;
+  }
+
+  .text-cyan {
+    @apply text-secondary;
+  }
+
+  .bg-dark-blue {
+    @apply bg-accent;
+  }
+}
+
+/* Add custom styles for the XAUBOT website */
+.hero-gradient {
+  background: linear-gradient(to bottom right, rgba(20, 20, 40, 0.8), rgba(30, 30, 60, 0.9));
+}
+
+.gold-text {
+  color: rgb(var(--primary));
+}
+
+.cyan-text {
+  color: rgb(var(--secondary));
+}
