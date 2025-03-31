@@ -6,11 +6,11 @@ import CTASection from '@/components/cta-section';
 
 export default function Home() {
   return (
-    <>
+    <React.Fragment>
       <HeroSection />
       <FeaturesSection />
       <TestimonialsSection />
       <CTASection />
-    </>
+    </React.Fragment>
   );
 }
