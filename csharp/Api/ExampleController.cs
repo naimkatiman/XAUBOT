@@ -1,47 +1,114 @@
 using System;
-using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using XaubotClone.Services;
 
 namespace XaubotClone.Api
 {
-    // Placeholder for a potential API controller.
-    // In a real ASP.NET Core application, this would likely inherit from ControllerBase
-    // and use attributes like [ApiController], [Route], [HttpGet], [HttpPost], etc.
-
-    public class ExampleController
+    /// <summary>
+    /// Example API controller demonstrating various endpoints
+    /// </summary>
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ExampleController : ControllerBase
     {
-        // Example placeholder method representing an API endpoint to get data.
-        public List<string> GetData()
+        private readonly IDataService _dataService;
+
+        public ExampleController(IDataService dataService)
         {
-            // In a real API, this would fetch data from a database or another service.
-            return new List<string> { "data1", "data2", "valueA", "valueB" };
+            _dataService = dataService;
         }
 
-        // Example placeholder method representing an API endpoint to add data.
-        // It might take some input model as a parameter.
-        public bool AddData(string newData)
+        /// <summary>
+        /// Gets all available data items
+        /// </summary>
+        /// <returns>List of data items</returns>
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<string>>> GetAllData()
         {
-            if (string.IsNullOrWhiteSpace(newData))
-            {
-                return false; // Indicate failure
-            }
-
-            // In a real API, this would save the data to a database or other storage.
-            Console.WriteLine($"Placeholder: Received data to add: {newData}");
-
-            // Simulate success
-            return true;
+            var items = await _dataService.GetAllItemsAsync();
+            return Ok(items);
         }
 
-        // Example placeholder method with a parameter.
-        public string GetDataById(int id)
+        /// <summary>
+        /// Gets a specific data item by ID
+        /// </summary>
+        /// <param name="id">The ID of the item to retrieve</param>
+        /// <returns>The requested data item</returns>
+        [HttpGet("{id}")]
+        public async Task<ActionResult<string>> GetDataById(int id)
         {
-            // Simulate fetching data based on an ID.
-            if (id < 0 || id >= GetData().Count)
+            try
             {
-                // In a real API, might return NotFound() or similar.
-                return "Error: Invalid ID";
+                var item = await _dataService.GetItemByIdAsync(id);
+                return Ok(item);
             }
-            return $"Data for ID {id}: {GetData()[id]}";
+            catch (ArgumentOutOfRangeException)
+            {
+                return NotFound($"Item with ID {id} not found");
+            }
+        }
+
+        /// <summary>
+        /// Adds a new data item
+        /// </summary>
+        /// <param name="newData">The data to add</param>
+        /// <returns>Result of the operation</returns>
+        [HttpPost]
+        public async Task<IActionResult> AddData([FromBody] string newData)
+        {
+            try
+            {
+                var id = await _dataService.AddItemAsync(newData);
+                return CreatedAtAction(nameof(GetDataById), new { id }, newData);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Updates an existing data item
+        /// </summary>
+        /// <param name="id">ID of item to update</param>
+        /// <param name="updatedData">New data value</param>
+        /// <returns>Result of the operation</returns>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateData(int id, [FromBody] string updatedData)
+        {
+            try
+            {
+                await _dataService.UpdateItemAsync(id, updatedData);
+                return NoContent();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return NotFound($"Item with ID {id} not found");
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Deletes a data item
+        /// </summary>
+        /// <param name="id">ID of item to delete</param>
+        /// <returns>Result of the operation</returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteData(int id)
+        {
+            try
+            {
+                await _dataService.DeleteItemAsync(id);
+                return NoContent();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return NotFound($"Item with ID {id} not found");
+            }
         }
     }
-} 
+}
