@@ -40,5 +40,29 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# HTML Files
+# Frontend Related Files
+# HTML
 *.html
+
+# Component Files
+/src/components/
+/src/app/
+/src/pages/
+
+# Style Files
+*.css
+*.scss
+*.sass
+*.less
+
+# JavaScript/TypeScript Frontend Files
+/src/**/*.js
+/src/**/*.jsx
+/src/**/*.ts
+/src/**/*.tsx
+
+# Other Frontend Assets
+/public/
+/src/assets/
+/src/styles/
+/src/lib/
