@@ -61,9 +61,12 @@ This application follows a clean architecture pattern with the following compone
 │   ├── IDataRepository.cs
 │   ├── MemoryDataRepository.cs
 │   ├── IUserRepository.cs
+│   ├── UserRepository.cs
 │   ├── MemoryUserRepository.cs
 │   ├── ITradingRepository.cs
-│   └── MemoryTradingRepository.cs
+│   ├── TradingRepository.cs
+│   ├── MemoryTradingRepository.cs
+│   └── XaubotDbContext.cs
 ├── Domain                  # Domain Models
 │   ├── User.cs
 │   ├── UserRole.cs
@@ -75,7 +78,11 @@ This application follows a clean architecture pattern with the following compone
 ├── Services                # Business Logic
 │   ├── DataService.cs
 │   ├── UserService.cs
-│   └── TradingService.cs
+│   ├── TradingService.cs
+│   ├── IMarketDataService.cs
+│   ├── ITradingService.cs
+│   ├── IUserService.cs
+│   └── MarketDataService.cs
 └── DependencyInjection.cs  # Service Registration
 ```
 
@@ -89,6 +96,15 @@ This project focuses on the C# backend implementation. To maintain this focus, w
 - Style files
 
 This approach ensures that the repository primarily contains the C# backend code, making it easier to review, maintain, and collaborate on the backend architecture.
+
+## Recent Updates
+
+The following components have been added to the XAUBOT backend:
+
+1. **Database Context**: Implemented `XaubotDbContext` for Entity Framework Core integration
+2. **Repository Implementations**: Added concrete implementations for `UserRepository` and `TradingRepository`
+3. **Service Interfaces**: Defined clear contracts for `IMarketDataService`, `ITradingService`, and `IUserService`
+4. **Service Implementation**: Added `MarketDataService` for retrieving and processing market data
 
 ## Getting Started
 
