@@ -1,6 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using XaubotClone.Domain;
 
@@ -48,17 +53,181 @@ namespace XaubotClone.Data
                 CreatedAt = DateTime.UtcNow.AddDays(-10),
                 LastLoginAt = DateTime.UtcNow.AddHours(-12),
                 IsActive = true
+            },
+            new User 
+            { 
+                Id = 4, 
+                Username = "trader2", 
+                Email = "trader2@example.com", 
+                PasswordHash = "8nPswxXhH29w6EEQWQTf2U9ZZ3zRJLN8XNsU4aDuQRE=", // trader456
+                FirstName = "Robert", 
+                LastName = "Johnson", 
+                Role = UserRole.Regular,
+                CreatedAt = DateTime.UtcNow.AddDays(-5),
+                LastLoginAt = DateTime.UtcNow.AddHours(-2),
+                IsActive = true
             }
         };
 
         private readonly object _lock = new object();
-        private int _nextId = 4;
+        private int _nextId = 5;
+        
+        // Audit log to track changes to users
+        private readonly List<UserAuditLog> _auditLogs = new List<UserAuditLog>();
 
         public Task<List<User>> GetAllAsync()
         {
             lock (_lock)
             {
                 return Task.FromResult(_users.ToList());
+            }
+        }
+        
+        // Pagination methods
+        public Task<PagedResult<User>> GetPagedUsersAsync(int pageNumber, int pageSize, UserFilterCriteria filterCriteria = null)
+        {
+            if (pageNumber < 1) 
+                throw new ArgumentException("Page number must be greater than or equal to 1");
+                
+            if (pageSize < 1) 
+                throw new ArgumentException("Page size must be greater than or equal to 1");
+                
+            lock (_lock)
+            {
+                // Start with all users
+                IQueryable<User> query = _users.AsQueryable();
+                
+                // Apply filtering if criteria provided
+                if (filterCriteria != null)
+                {
+                    // Search term (username, email, first name, last name)
+                    if (!string.IsNullOrWhiteSpace(filterCriteria.SearchTerm))
+                    {
+                        query = query.Where(u => 
+                            u.Username.Contains(filterCriteria.SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                            u.Email.Contains(filterCriteria.SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                            (u.FirstName != null && u.FirstName.Contains(filterCriteria.SearchTerm, StringComparison.OrdinalIgnoreCase)) ||
+                            (u.LastName != null && u.LastName.Contains(filterCriteria.SearchTerm, StringComparison.OrdinalIgnoreCase)));
+                    }
+                    
+                    // Filter by role
+                    if (filterCriteria.Role.HasValue)
+                    {
+                        query = query.Where(u => u.Role == filterCriteria.Role.Value);
+                    }
+                    
+                    // Filter by active status
+                    if (filterCriteria.IsActive.HasValue)
+                    {
+                        query = query.Where(u => u.IsActive == filterCriteria.IsActive.Value);
+                    }
+                    
+                    // Filter by created date range
+                    if (filterCriteria.CreatedAfter.HasValue)
+                    {
+                        query = query.Where(u => u.CreatedAt >= filterCriteria.CreatedAfter.Value);
+                    }
+                    
+                    if (filterCriteria.CreatedBefore.HasValue)
+                    {
+                        query = query.Where(u => u.CreatedAt <= filterCriteria.CreatedBefore.Value);
+                    }
+                    
+                    // Filter by last login date range
+                    if (filterCriteria.LastLoginAfter.HasValue)
+                    {
+                        query = query.Where(u => u.LastLoginAt.HasValue && u.LastLoginAt.Value >= filterCriteria.LastLoginAfter.Value);
+                    }
+                    
+                    if (filterCriteria.LastLoginBefore.HasValue)
+                    {
+                        query = query.Where(u => u.LastLoginAt.HasValue && u.LastLoginAt.Value <= filterCriteria.LastLoginBefore.Value);
+                    }
+                    
+                    // Apply sorting
+                    if (!string.IsNullOrWhiteSpace(filterCriteria.SortBy))
+                    {
+                        // Apply ordering based on the property name
+                        switch (filterCriteria.SortBy.ToLowerInvariant())
+                        {
+                            case "username":
+                                query = filterCriteria.SortDescending ? 
+                                    query.OrderByDescending(u => u.Username) : 
+                                    query.OrderBy(u => u.Username);
+                                break;
+                            case "email":
+                                query = filterCriteria.SortDescending ? 
+                                    query.OrderByDescending(u => u.Email) : 
+                                    query.OrderBy(u => u.Email);
+                                break;
+                            case "firstname":
+                                query = filterCriteria.SortDescending ? 
+                                    query.OrderByDescending(u => u.FirstName) : 
+                                    query.OrderBy(u => u.FirstName);
+                                break;
+                            case "lastname":
+                                query = filterCriteria.SortDescending ? 
+                                    query.OrderByDescending(u => u.LastName) : 
+                                    query.OrderBy(u => u.LastName);
+                                break;
+                            case "createdat":
+                                query = filterCriteria.SortDescending ? 
+                                    query.OrderByDescending(u => u.CreatedAt) : 
+                                    query.OrderBy(u => u.CreatedAt);
+                                break;
+                            case "lastloginat":
+                                query = filterCriteria.SortDescending ? 
+                                    query.OrderByDescending(u => u.LastLoginAt) : 
+                                    query.OrderBy(u => u.LastLoginAt);
+                                break;
+                            case "role":
+                                query = filterCriteria.SortDescending ? 
+                                    query.OrderByDescending(u => u.Role) : 
+                                    query.OrderBy(u => u.Role);
+                                break;
+                            case "isactive":
+                                query = filterCriteria.SortDescending ? 
+                                    query.OrderByDescending(u => u.IsActive) : 
+                                    query.OrderBy(u => u.IsActive);
+                                break;
+                            default: // Default sort by Id
+                                query = filterCriteria.SortDescending ? 
+                                    query.OrderByDescending(u => u.Id) : 
+                                    query.OrderBy(u => u.Id);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        // Default sorting by Id if not specified
+                        query = query.OrderBy(u => u.Id);
+                    }
+                }
+                else
+                {
+                    // Default sorting by Id if no filter criteria
+                    query = query.OrderBy(u => u.Id);
+                }
+                
+                // Get the total count for the filtered query
+                int totalCount = query.Count();
+                
+                // Apply pagination
+                var pagedItems = query
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+                
+                // Create and return the paged result
+                var result = new PagedResult<User>
+                {
+                    Items = pagedItems,
+                    TotalCount = totalCount,
+                    PageNumber = pageNumber,
+                    PageSize = pageSize
+                };
+                
+                return Task.FromResult(result);
             }
         }
 
